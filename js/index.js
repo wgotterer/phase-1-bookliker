@@ -12,23 +12,24 @@ document.addEventListener("DOMContentLoaded", function() {
 function fetchBooks() {
     fetch("http://localhost:3000/books")
     .then((resp) => resp.json())
-    .then((json) => renderBooks(json))
+    .then((books) => books.forEach(book => renderBooks(book)))
+}
   
-  
-    function renderBooks(books){
-        console.log(books);
-        const ul = document.querySelector("ul#list");
-        books.forEach(book => {
+    function renderBooks(book){
+        console.log(book);
+        const ul = document.querySelector("#list");
+        
             const li = document.createElement("li");
             li.innerHTML = book.title
-            ul.appendChild(li)
-            li.addEventListener("click", ( )=> display(book))
-        })
+            ul.append(li)
+            li.addEventListener("click", () => display(book))
+        
     }
   
-  }
+
   
   function display(book){
+      console.log(book)
       const showPanel = document.querySelector("div#show-panel")
 
       const author = document.createElement("p")
@@ -46,12 +47,16 @@ function fetchBooks() {
       const title = document.createElement("p")
       title.className = "title"
       title.innerHTML = book.title
+      console.log(title)
 
-      const userList = document.createElement("li")
-      userList.className = "users"
-      userList.innerHTML = book.users.forEach(person => person) 
+    //   const userList = document.createElement("li")
+    //   userList.className = "users"
+    //   userList.innerHTML = book.users.forEach(person => person) 
 
-      showPanel.append(users)
+      const bookUsers = book.filter(book => console.log(book))
+      console.log(bookUsers)
+
+      showPanel.append(author)
 
   }
 
